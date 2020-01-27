@@ -7,9 +7,6 @@ website: ${url}
 main: ${mainClass}
 
 commands:
-    example:
-        description: An example command
-        permission: spigotplugin.example
-        usage: /<command>
-
-permissions: {}
+    stock:
+        description: CDStocks main command
+        usage: /<command> [help|buy|sell]
