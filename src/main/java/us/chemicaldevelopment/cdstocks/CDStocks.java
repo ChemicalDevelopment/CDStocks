@@ -1,8 +1,8 @@
-package me.sgray.template.spigotplugin;
+package us.chemicaldevelopment.cdstocks;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class SpigotPlugin extends JavaPlugin {
+public class CDStocks extends JavaPlugin {
     @Override
     public void onDisable() {
         // Don't log disabling, Spigot does that for you automatically!
