@@ -5,11 +5,19 @@ A stocks plugin for minecraft where values of commodities can be bought and sold
 
 ## Building
 
-To build, simply copy in a `spigot.jar` file into the root of the project, then `mvn`. It should build into `target`
+`CDStocks` depends on both `spigot` & `Vault`
 
-## Algo
+First, copy a `spigot.jar` and a `Vault.jar` into the root directory (you can copy these from your server folder)
 
-The algorithm behind the price of an individual item is calculately thusly:
+Then, run `mvn build`. It should build a file in the `target` directory, `CDStocks-$VERSION.jar`
+
+
+## Internals
+
+In the `CDStocks/plugin.yml` file, 
+
+
+
 
 Each stock has an associated item ID (for example, an iron ingot)
 and parameters for minimum, maximum, and starting price per item `min=25,max=400,start=100` for iron

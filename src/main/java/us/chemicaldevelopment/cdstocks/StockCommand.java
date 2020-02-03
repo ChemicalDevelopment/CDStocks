@@ -58,7 +58,6 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                 // they have partially started typing the stock type, if it is a valid sub command
 
                 String sub_cmd = args[0].toLowerCase();
-
                 
                 if (sub_cmd.equals("buy") || sub_cmd.equals("sell")) {
                     // give suggestions of stocks
@@ -66,6 +65,13 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                     for (Stock stock : plugin.stocks) {
                         matches.add(stock.name);
                     }
+
+                    final List<String> completions = new ArrayList<>();
+
+                    // else, search for partial matches
+                    StringUtil.copyPartialMatches(args[1], matches, completions);
+                    Collections.sort(completions);
+
                     return matches;
                 }
 
@@ -86,12 +92,12 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                 // we have a sub command
                 String sub_cmd = args[0].toLowerCase();
                 if (sub_cmd.equals("info")) {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + 
-                    " &9Buy tax: &l&c$" + plugin.df.format(plugin.taxFlatBuy) + "&7+&c" + plugin.df.format(plugin.taxRateBuy * 100) + "%" + " &9Sell tax: &l&c$" + plugin.df.format(plugin.taxFlatSell) + "&7+&c" + plugin.df.format(plugin.taxRateSell * 100) + "%"));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + 
+                    "&9Buy tax: &l&c$" + plugin.df.format(plugin.taxFlatBuy) + "&7+&c" + plugin.df.format(plugin.taxRateBuy * 100) + "%" + " &9Sell tax: &l&c$" + plugin.df.format(plugin.taxFlatSell) + "&7+&c" + plugin.df.format(plugin.taxRateSell * 100) + "%"));
 
                     return true;
                 } else if (sub_cmd.equals("list")) {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "List of current stocks:"));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "List of current stocks:"));
                     // go through all the stocks
                     for (Stock stock : plugin.stocks) {
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', 
@@ -111,7 +117,7 @@ public class StockCommand implements CommandExecutor, TabCompleter {
 
                     if (args.length < 2) {
                         // print usage message
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "Usage: &6/stock buy [stock] [num=1]"));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Usage: &6/stock buy [stock] [num=1]"));
                         // list of stocks
                         String ls = "&9Stocks: ";
 
@@ -137,7 +143,7 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                         if (idx < 0) {
                             // not found
                             // print usage message
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "Unknown stock: &6" + stockname));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Unknown stock: &6" + stockname));
                             // list of stocks
                             String ls = "&9Stocks: ";
 
@@ -207,14 +213,14 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                                 }
                                 
                                 if (i < quant) {
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "Not enough money! (need &a$" + plugin.df.format(price) + "&9). You ended up buying &a" + (i) + " &6" + stock.name + "&9 for &a$" + plugin.df.format(sum_price)));
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Not enough money! (need &a$" + plugin.df.format(price) + "&9). You ended up buying &a" + (i) + " &6" + stock.name + "&9 for &a$" + plugin.df.format(sum_price)));
                                 } else {
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "Bought &6" + quant + " " + stock.name + "&9 for &a$" + plugin.df.format(sum_price) + "&9"));
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Bought &6" + quant + " " + stock.name + "&9 for &a$" + plugin.df.format(sum_price) + "&9"));
                                 }
 
                             } else {
 
-                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "You can only buy stocks as a player!"));
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "You can only buy stocks as a player!"));
                             }
 
                         }
@@ -228,7 +234,7 @@ public class StockCommand implements CommandExecutor, TabCompleter {
 
                     if (args.length < 2) {
                         // print usage message
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "Usage: &6/stock sell [stock] [num=1]"));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Usage: &6/stock sell [stock] [num=1]"));
                         // list of stocks
                         String ls = "&9Stocks: ";
 
@@ -254,7 +260,7 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                         if (idx < 0) {
                             // not found
                             // print usage message
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "Unknown stock: &6" + stockname));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Unknown stock: &6" + stockname));
                             // list of stocks
                             String ls = "&9Stocks: ";
 
@@ -294,7 +300,7 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                                 if (quant_have < quant) {
                                     // not enough items
 
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "Not enough stock! (need &a" + quant + " &6" + stock.mat.toString() + "&9, but just have &c" + quant_have + "&9)"));
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Not enough stock! (need &a" + quant + " &6" + stock.mat.toString() + "&9, but just have &c" + quant_have + "&9)"));
 
                                 } else {
                                     
@@ -344,14 +350,14 @@ public class StockCommand implements CommandExecutor, TabCompleter {
 
                                     CDStocks.econ.depositPlayer((OfflinePlayer)player, sum_price);
 
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "Sold &6" + quant + " " + stock.name + "&9 for &a$" + plugin.df.format(sum_price) + "&9"));
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Sold &6" + quant + " " + stock.name + "&9 for &a$" + plugin.df.format(sum_price) + "&9"));
 
                                 }
 
 
                             } else {
 
-                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "You can only buy stocks as a player!"));
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "You can only buy stocks as a player!"));
                             }
 
                         }
@@ -361,7 +367,7 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                     }
 
                 } else if (sub_cmd.equals("help")) {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "Usage: &6/stock [help|list|buy|sell]"));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Usage: &6/stock [help|list|buy|sell]"));
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/stock help"));
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/stock list"));
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6/stock buy [stockName] [num=1]"));
@@ -373,7 +379,7 @@ public class StockCommand implements CommandExecutor, TabCompleter {
             }
 
             // if it wasn't handled yet, print a usage message
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getPrefix() + "Usage: /stock [help|list|buy|sell]"));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Usage: /stock [help|list|buy|sell]"));
 
             // tell them we handled it
             return true;

@@ -1,0 +1,78 @@
+# CDStocks - config.yml
+#
+# This file is the configuration for the CDStocks plugin. It contains a list of all stocks,
+#   and global params. The only thing written automatically are the prices, so please do not
+#   edit it while the server is running (or risk corrupting it).
+#
+# You can use plugman to disable the plugin, then edit this file, then re-enable it
+#
+# @author: Cade Brown <brown.cade@gmail.com>
+#
+
+# the command prefix, put before every response to the player
+prefix: '&7[&a&lCD&r&eStocks&7] &l»&r&9 '
+
+# the update period, in seconds, between time steps
+# default is 5, so every 5 seconds, prices are updated.
+# NOTE: Individual stock prices are updated per-interaction as well,
+#         as well as on each update period
+updatePeriod: 5
+
+# -*- TAXES -*-
+# Tax for buying is calculated as:
+#   taxFlatBuy + (1+taxRateBuy) * PRICE
+#   for a single purchase.
+# However, if someone buys 10 stock at once,
+#   they are charged 1 taxFlatBuy, then the PRICE is updated
+#   internally 10 times, and they are then added together
+# This is to make it so that each of the 10 iron are bought at different prices,
+#   so people can't game the system by purchasing a whole lot and inflating the market
+#
+# Similiarly, taxes for selling is calculated as:
+#  PRICE*(1-taxRateSell) - taxFlatSell
+#
+# Again, for selling many items, the price is incrementally calculated
+#
+
+# the flat tax that is charged per transaction
+taxFlatBuy: 25
+# the tax rate, as a portion of the entire amount purchased
+taxRateBuy: 0.065
+
+# the flat tax that is charged per transaction
+taxFlatSell: 12
+# the tax rate, as a portion of the entire amount sold
+taxRateSell: 0.032
+
+# list of stocks
+stocks:
+  iron: # name of the stock, i.e. 'iron'
+    material: IRON_INGOT # material, you can find a list here: https://dev.bukkit.org/projects/supplies/pages/material-list
+    price:
+      current: 100 
+      default: 100 # the default, starting price of the resource
+      min: 25 # the price cap, minimum. The price will never be lower than this
+      max: 400 # the price cap, maximum. The price will never be higher than this
+    volatility: 2.1 # the volatility of the stock. Higher values make the stock more reactive
+                    #   to buying/selling
+    randomness: 1.5 # randomness, in $/s. The price can fluctuate up or down by this
+                    #   many dollars per second, average
+                    #   randomness of 0 disables any chance
+  gold:
+    material: GOLD_INGOT
+    price:
+      current: 500
+      default: 500
+      min: 10
+      max: 7500
+    volatility: 80.0
+    randomness: 20.0
+  diamond:
+    material: DIAMOND
+    price:
+      current: 3200
+      default: 3200
+      min: 1200
+      max: 6000
+    volatility: 30.0
+    randomness: 8.0

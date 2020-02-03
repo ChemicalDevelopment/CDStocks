@@ -83,13 +83,13 @@ public class Stock {
             // randomness should tend downwards
             double scl = (price - defaultPrice) / (maxPrice - defaultPrice);
             // intensity of effect
-            scl *= 0.7f;
+            scl *= 0.1f;
             amt_random = randomness * ((2 - scl) * Math.random() - 1);
         } else {
             // randomness should tend upwards
             double scl = (defaultPrice - price) / (defaultPrice - minPrice);
             // intensity of effect
-            scl *= 0.6f;
+            scl *= 0.05f;
             amt_random = randomness * (1 - (2 - scl) * Math.random());
         }
 
