@@ -65,7 +65,7 @@ public class Stock {
         // this should be ran every time, and since it is called on buy/sell, the additional
         // volume is going to be 1
         curHype1 = Math.pow(decay1, dt + 0.2) * curHype1 + diff;
-        curHype2 = Math.pow(decay2, dt + 0.5) * curHype2 + diff;
+        curHype2 = Math.pow(decay2, dt + 0.3) * curHype2 + diff;
 
         if (diff != 0) {
             // someone bought or sold something, so run a random simulation
@@ -95,7 +95,7 @@ public class Stock {
 
         // amount to add to readjust prices
         // adjust by the current hype (which is signed)
-        double amt_readj = volatility * (0.15 * Math.atan(curHype1 * 0.16) / (Math.PI / 2) + .32 * Math.atan(curHype2 * 0.023) / (Math.PI / 2));
+        double amt_readj = volatility * (0.17 * Math.atan(curHype1 * 0.18) / (Math.PI / 2) + .38 * Math.atan(curHype2 * 0.028) / (Math.PI / 2));
 
         // update our price
         price += dt * (amt_random + amt_readj);

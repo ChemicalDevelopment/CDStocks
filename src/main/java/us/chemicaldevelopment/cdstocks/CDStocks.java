@@ -78,10 +78,10 @@ public class CDStocks extends JavaPlugin {
         /* set up the configuration options */
 
         config.addDefault("prefix", "&7[&a&lCD&r&eStocks&7] &l»&r&9 ");
-        config.addDefault("taxRateBuy", 0.058);
+        config.addDefault("taxRateBuy", 0.06);
         config.addDefault("taxFlatBuy", 40);
 
-        config.addDefault("taxRateSell", 0.025);
+        config.addDefault("taxRateSell", 0.03);
         config.addDefault("taxFlatSell", 20);
 
         /* in the config, the YAML should be like:
