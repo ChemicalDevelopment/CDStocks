@@ -188,7 +188,7 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                                     // add just 1 instance of tax
                                     if (i == 0) price += plugin.taxFlatBuy;
 
-                                    bal = CDStocks.econ.getBalance(player);
+                                    bal = plugin.econ.getBalance(player);
 
                                     if (bal < price) {
                                         // not enough money
@@ -201,7 +201,7 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                                         player.getInventory().addItem(new ItemStack(stock.mat, 1));
 
                                         // change balance
-                                        CDStocks.econ.withdrawPlayer((OfflinePlayer)player, price);
+                                        plugin.econ.withdrawPlayer((OfflinePlayer)player, price);
 
                                         // record it with the stock
                                         stock.recordBuy();
@@ -348,7 +348,7 @@ public class StockCommand implements CommandExecutor, TabCompleter {
                                     if (sum_price < 0) sum_price = 0;
 
 
-                                    CDStocks.econ.depositPlayer((OfflinePlayer)player, sum_price);
+                                    plugin.econ.depositPlayer((OfflinePlayer)player, sum_price);
 
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.prefix + "Sold &6" + quant + " " + stock.name + "&9 for &a$" + plugin.df.format(sum_price) + "&9"));
 

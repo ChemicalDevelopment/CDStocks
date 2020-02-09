@@ -14,11 +14,6 @@ Then, run `mvn build`. It should build a file in the `target` directory, `CDStoc
 
 ## Internals
 
-In the `CDStocks/plugin.yml` file, 
-
-
-
-
 Each stock has an associated item ID (for example, an iron ingot)
 and parameters for minimum, maximum, and starting price per item `min=25,max=400,start=100` for iron
 

@@ -1,0 +1,12 @@
+name: "CDStocks"
+version: "0.1"
+description: "A stocks plugin that provides a fluctuating economy. Try it out with `/stock`"
+author: "Cade Brown <cade@cade.site>"
+website: "https://github.com/ChemicalDevelopment/CDStocks"
+
+main: "us.chemicaldevelopment.cdstocks.CDStocks"
+
+commands:
+    stock:
+        description: CDStocks main command
+        usage: /<command> [help|buy|sell]

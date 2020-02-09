@@ -1,83 +1,63 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Boiler Plate -->
     <modelVersion>4.0.0</modelVersion>
-    <groupId>us.chemicaldevelopment.cdstocks</groupId>
-    <artifactId>CDStocks</artifactId>
+
     <!-- Version is used in plugin.yml -->
-    <version>0.1</version>
-    <packaging>jar</packaging>
 
     <!-- Plugin Information -->
     <!-- Name, Description, and URL are used in plugin.yml -->
-    <name>CDStocks</name>
-    <description>Minecraft Spigot plugin to simulate a stock market</description>
+
+    <!-- Plugin Info (name, group, etc) -->
+    <artifactId>CDStocks</artifactId>
+    <packaging>jar</packaging>
+    <groupId>us.chemicaldevelopment.cdstocks</groupId>
+    <version>0.1</version>
     <url>http://github.com/ChemicalDevelopment/CDStocks</url>
 
-    <licenses>
-        <license>
-            <name>Zlib License</name>
-            <url>http://opensource.org/licenses/Zlib</url>
-            <comments>Copyright (c) 2014 Shaila Gray
-            This software is provided 'as-is', without any express or implied
-            warranty. In no event will the authors be held liable for any damages
-            arising from the use of this software.
-
-            Permission is granted to anyone to use this software for any purpose,
-            including commercial applications, and to alter it and redistribute it
-            freely, subject to the following restrictions:
-
-            1. The origin of this software must not be misrepresented; you must not
-            claim that you wrote the original software. If you use this software
-            in a product, an acknowledgment in the product documentation would be
-            appreciated but is not required.
-
-            2. Altered source versions must be plainly marked as such, and must not be
-            misrepresented as being the original software.
-
-            3. This notice may not be removed or altered from any source
-            distribution.</comments>
-        </license>
-    </licenses>
 
     <developers>
         <developer>
-                <name>Cade Brown</name>
-                <url>http://cade.site</url>
-	</developer>
-	<developer>
-		<name>Gregory Croisdale</name>
-		<url>http://greg-c.me</url>
-	</developer>
+            <name>Cade Brown</name>
+            <url>http://cade.site</url>
+	    </developer>
     </developers>
 
     <properties>
-        <!--  Author and MainClass are used in plugin.yml -->
         <author>Cade Brown</author>
-        <mainClass>us.chemicaldevelopment.cdstocks.CDStocks</mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
 
+<!-- Add sources for our dependencies -->
 <repositories>
-    <!-- This adds the Spigot Maven repository to the build -->
+
+    <!-- For `Spigot.jar`, i.e. the main spigot resource -->
     <repository>
         <id>spigot-repo</id>
         <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
 
+    <!-- For `Vault.jar`, i.e. the economy layer -->
 	<repository>
 		<id>jitpack.io</id>
 		<url>https://jitpack.io</url>
 	</repository>
 </repositories>
 
+
+<!-- List all of the things that we depend on -->
 <dependencies>
-    <!--This adds the Spigot API artifact to the build -->
+
+    <!-- Add the Spigot API to the project -->
     <dependency>
            <groupId>org.spigotmc</groupId>
            <artifactId>spigot-api</artifactId>
            <version>1.15.1-R0.1-SNAPSHOT</version>
            <scope>provided</scope>
     </dependency>
+
+    <!-- Add the Vault API to the project -->
     <dependency>
         <groupId>com.github.MilkBowl</groupId>
         <artifactId>VaultAPI</artifactId>
@@ -87,40 +67,40 @@
 </dependencies>
 
 
+<!-- Actual building information -->
+<build>
+
+    <!--  -->
+    <sourceDirectory>src</sourceDirectory>
+
+    <defaultGoal>clean install</defaultGoal>
+
+    <resources>
+        <!-- ./resources/ - the file resources that are bundled with the plugin
+               (put your default files, images, etc here) -->
+        <resource>
+            <directory>resources</directory>
+            <!-- Keep filtering at false for other resources to prevent bad magic -->
+            <filtering>false</filtering>
+            <excludes>
+                <exclude>**/*.java</exclude>
+            </excludes>
+        </resource>
+    </resources>
+
+    <!-- Boiler-plate plugin info for building-->
+    <plugins>
+        <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+                <source>1.7</source>
+                <target>1.7</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 
 
 
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <defaultGoal>clean install</defaultGoal>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <!-- Keeping filtering at true here reduces plugin.yml redundancy! -->
-                <filtering>true</filtering>
-                <includes>
-                    <include>plugin.yml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <!-- Keep filtering at false for other resources to prevent bad magic -->
-                <filtering>false</filtering>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                    <exclude>plugin.yml</exclude>
-                </excludes>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
